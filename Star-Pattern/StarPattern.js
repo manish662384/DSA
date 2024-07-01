@@ -1,29 +1,5 @@
 //document.querySelector("app")
 
-// 1      1
-// 12    21
-// 123  321
-// 12344321
-
-function starPattern13(n) {
-    let pattern = "";
-    for (let row = 1; row <= n; row++) {
-      for (let pattern1 = 1; pattern1 <= row; pattern1++) {
-        pattern += pattern1;
-      }
-      for (let pattern2 = 1; pattern2 <= ((2 * n) - (2 * row)); pattern2++) {
-        pattern += " ";
-      }
-      for (let pattern3 = row; pattern3 >= 1; pattern3--) {
-        pattern += pattern3;
-      }
-      pattern += "\n";
-    }
-    return pattern;
-  }
-  //console.log(starPattern13(4));
-//console.log("test");
-
 // import "./styles.css";
 // Star pattern problems from Striver's takeuforward DSA course
 document.getElementById("app").innerHTML = `
@@ -31,6 +7,11 @@ document.getElementById("app").innerHTML = `
 `;
 const star = "*";
 
+// *****
+// *****
+// *****
+// *****
+// *****
 function starPattern1() {
   let n = 5;
   let pattern = "<span>1.<br>";
@@ -111,6 +92,13 @@ function starPattern3(n) {
 
 ////////-------////////
 
+//       *       
+//       *       
+//       *       
+// * * * * * * * 
+//       *       
+//       *       
+//       * 
 // Here n should be odd no to print a plus star
 // function starPattern4(n) {
 //   let pattern = "";
@@ -208,6 +196,14 @@ function starPattern5(n) {
 //console.log(starPattern5(7));
 
 ///////------/////////
+
+// *******
+// **   **
+// * * * *
+// *  *  *
+// * * * *
+// **   **
+// *******
 function starPattern6(n) {
   let pattern = "";
   for (let row = 1; row <= n; row++) {
@@ -230,4 +226,80 @@ function starPattern6(n) {
   return pattern;
 }
 //console.log(starPattern6(7));
+// 1      1
+// 12    21
+// 123  321
+// 12344321
 
+function starPattern7(n) {
+    let pattern = "";
+    for (let row = 1; row <= n; row++) {
+      for (let pattern1 = 1; pattern1 <= row; pattern1++) {
+        pattern += pattern1;
+      }
+      for (let pattern2 = 1; pattern2 <= ((2 * n) - (2 * row)); pattern2++) {
+        pattern += " ";
+      }
+      for (let pattern3 = row; pattern3 >= 1; pattern3--) {
+        pattern += pattern3;
+      }
+      pattern += "\n";
+    }
+    return pattern;
+  }
+  //console.log(starPattern13(4));
+
+  //////-------/////////
+
+// Pascal's triangle
+//         1
+//       1   1
+//     1   2   1
+//   1   3   3   1
+// 1   4   6   4   1
+
+// OR
+
+// 1
+// 1 1
+// 1 2 1
+// 1 3 3 1
+// 1 4 6 4 1
+
+// We will solve it by using (Combination = nCr = n! / (r!*(n-r)!)), where n is row and r is column,
+// but here we will do (row - 1 C column - 1) => r-1Cc-1.
+// for each element except first element of any column where we know the value will always be 1, we
+//  can compute the value through (row-1 C column-1), the shortcut formula is, let's say
+//  for row 5 column 3, then row-1 C column-1, which will be 4C2, formula will be 4*3/2*1, i.e,
+//  the number which is denominator, then that many times we have to move forward with multiplying above
+//  with n*n-1*n-2 and so on. For row 4, column 4, then row-1 and column-1, will be, 3C3, which will be
+//  3*2*1/3*2*1 = 1.
+//  Let, say for row 3, first column value will be 1, after that, each column value will be,
+//  3/1 , 3*2/2*1, 3*2*1/3*2*1
+
+function starPattern8(n) {
+  let pattern = "";
+
+  function generateRow(row) {
+    // take the first value of each row as 1 and print it.
+    let coefficient = 1;
+    pattern += coefficient;
+    // start the loop from 1 because in the formula 0 will not work. And it will loop until less than
+    // row since first column is 1 which is already printed.
+    for (let column = 1; column < row; column++) {
+      coefficient = (coefficient * (row - column)) / column;
+      pattern += " " + coefficient;
+    }
+    return pattern;
+  }
+  // printing spaces before the actual numbers in each row
+  for (let row = 1; row <= n; row++) {
+    for (let space = 0; space < n - row; space++) {
+      pattern += " ";
+    }
+    pattern = generateRow(row);
+    pattern += "\n";
+  }
+  return pattern;
+}
+console.log(starPattern8(5));
