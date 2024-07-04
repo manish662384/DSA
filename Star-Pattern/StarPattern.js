@@ -292,8 +292,9 @@ function starPattern8(n) {
     }
     return pattern;
   }
-  // printing spaces before the actual numbers in each row
+  
   for (let row = 1; row <= n; row++) {
+    // printing spaces before the actual numbers in each row
     for (let space = 0; space < n - row; space++) {
       pattern += " ";
     }
@@ -301,5 +302,30 @@ function starPattern8(n) {
     pattern += "\n";
   }
   return pattern;
+}
+//console.log(starPattern8(5));
+///////--OR--///////
+//Using array
+function starPattern8(n) {
+  let res = [];
+
+  function generateRow(row) {
+    // take the first value of each row as 1 and print it.
+    let temp = [];
+    let coefficient = 1;
+    temp.push(coefficient);
+    // start the loop from 1 because in the formula 0 will not work. And it will loop until less than
+    // row since first column is 1 which is already printed.
+    for (let column = 1; column < row; column++) {
+      coefficient = (coefficient * (row - column)) / column;
+      temp.push(coefficient);
+    }
+    return temp;
+  }
+  
+  for (let row = 1; row <= n; row++) {    
+    res.push(generateRow(row));
+  }
+  return res;
 }
 console.log(starPattern8(5));
