@@ -329,3 +329,11 @@ function starPattern8(n) {
   return res;
 }
 console.log(starPattern8(5));
+
+
+
+
+
+
+
+
